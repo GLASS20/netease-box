@@ -15,7 +15,7 @@ jobs:
       - name: Update Gist
         uses: ./
         env:
-          GIST_ID: 89f1a1c7ddfa6c9c35a6efae1d536cf7
+          GIST_ID: 22c80a7dee9830ae2b6ce65d102cd517
           ACCOUNT_ID: 3900516248
           SONG_TYPE: 1
           GH_TOKEN: ${{ secrets.GH_TOKEN }}\
