@@ -68,7 +68,7 @@ const aesRsaEncrypt = (text) => ({
     console.log('Top 5 tracks:\n', tracks)
 
     const octokit = new Octokit({
-      auth: `token ${githubToken}`,
+      auth: '${githubToken}',
     })
 
     let gist;
