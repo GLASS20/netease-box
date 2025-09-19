@@ -18,7 +18,7 @@ jobs:
           GIST_ID: 89f1a1c7ddfa6c9c35a6efae1d536cf7
           ACCOUNT_ID: 3900516248
           SONG_TYPE: 1
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}\
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           
   workflow-keepalive:
     if: github.event_name == 'schedule'
