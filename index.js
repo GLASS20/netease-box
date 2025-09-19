@@ -27,6 +27,10 @@ const aesRsaEncrypt = (text) => ({
     '84ca47bca10bad09a6b04c5c927ef077d9b9f1e37098aa3eac6ea70eb59df0aa28b691b7e75e4f1f9831754919ea784c8f74fbfadf2898b0be17849fd656060162857830e241aba44991601f137624094c114ea8d17bce815b0cd4e5b8e2fbaba978c6d1d14dc3d1faf852bdd28818031ccdaaa13a6018e1024e2aae98844210',
 })
 
+const octokit = new Octokit({
+  auth: `token ${githubToken}`
+});
+
 ;(async () => {
   try {
     const { data } = await axios.post(
@@ -67,10 +71,6 @@ const aesRsaEncrypt = (text) => ({
 
     console.log('Top 5 tracks:\n', tracks)
 
-    const octokit = new Octokit({
-      auth: '${githubToken}',
-    })
-
     let gist;
     try {
       gist = await octokit.gists.get({
@@ -80,21 +80,17 @@ const aesRsaEncrypt = (text) => ({
       console.error(`music-box ran into an issue getting your Gist:\n${error}`);
     }
 
-    const filename = Object.keys(gist.data.files)[0]
-    console.log('Filename:', filename);
-
-    await octokit.request('PATCH /gists/{gist_id}', {
-      gist_id: gistId,
-      description: 'An updated gist description',
+    const filename = Object.keys(gist.data.files)[0];
+    console.log(lines.join("\n"));
+    await octokit.gists.update({
+      gist_id: gistID,
       files: {
-        '🎶 My last week in music': {
-          content: tracks,
+        [filename]: {
+          filename: `🎶 My last week in music`,
+          content: tracks.join("\n")
         }
-      },
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28'
       }
-    })
+    });
 
     console.log('Gist updated successfully')
   } catch (error) {
