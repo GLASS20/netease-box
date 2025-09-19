@@ -83,11 +83,15 @@ const aesRsaEncrypt = (text) => ({
     const filename = Object.keys(gist.data.files)[0]
     console.log('Filename:', filename);
 
+    const now = new Date();
+    const beijing = new Date(now.getTime() + 8 * 60 * 60 * 1000);
+    const dateStr = beijing.toISOString().slice(0, 10);
+    
     await octokit.request('PATCH /gists/{gist_id}', {
       gist_id: gistId,
-      description: 'An updated gist description',
+      description: '🎵 My last week in music',
       files: {
-        '🎵 My last week in music': {
+        [dateStr]: {
           content: tracks,
         }
       },
