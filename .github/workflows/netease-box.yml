@@ -15,7 +15,15 @@ jobs:
       - name: Update Gist
         uses: ./
         env:
-          GIST_ID: 3634718b3e28d97140c675edff9ca9dc
-          ACCOUNT_ID: 1504809469
+          GIST_ID: 89f1a1c7ddfa6c9c35a6efae1d536cf7
+          ACCOUNT_ID: 3900516248
           SONG_TYPE: 1
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}\
+          
+  workflow-keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1
